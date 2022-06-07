@@ -1,0 +1,7 @@
+.image {
+  background-image: url("./image/proje.jpg");
+  background-repeat: no-repeat;
+ background-size: contain;
+  background-position: center;
+    margin-top: -311px;
+}
