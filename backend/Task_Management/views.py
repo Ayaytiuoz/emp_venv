@@ -149,10 +149,58 @@ def tache_CRUD(request, id=0):
 def top_employe(request):
     if request.method == 'GET':
         cursor = connections['default'].cursor()
-        cursor.execute(
-            "SELECT count(e.Matricule) as cpt , e.Matricule , e.Nom , e.Prenom from touchtask_employe e , touchtask_tache t where e.Matricule=t.Employe_id and t.Etat='fin'  ORDER BY cpt LIMIT 1")
+        cursor.execute("SELECT count(e.Matricule) as cpt , e.Matricule , e.Nom , e.Prenom from touchtask_employe e , touchtask_tache t where e.Matricule=t.Employe_id and t.Etat='fin'  ORDER BY cpt LIMIT 1")
         objs = cursor.fetchall()
         json_data = []
         for obj in objs:
             json_data.append({"count": obj[0], "Matricule": obj[1], "NOM": obj[2], "Prenom": obj[3]})
+        return JsonResponse(json_data, safe=False)
+
+@csrf_exempt
+def modifier_tache_encours(request, id):
+    if request.method == 'PUT':
+        cursor = connections['default'].cursor()
+        cursor.execute("update task_management_tache set Etat ='EN COURS' where id_tache=%s" %id )
+        objs = cursor.fetchall()
+        json_data = []
+        json_data.append('update succesful')
+        return JsonResponse(json_data, safe=False)
+@csrf_exempt
+def modifier_tache_fin(request, id):
+    if request.method == 'PUT':
+        cursor = connections['default'].cursor()
+        cursor.execute("update task_management_tache set Etat ='FIN' where id_tache=%s" %id )
+        objs = cursor.fetchall()
+        json_data = []
+        json_data.append('update succesful')
+        return JsonResponse(json_data, safe=False)
+@csrf_exempt
+def get_tache_enattent(request):
+    if request.method == 'GET':
+        cursor = connections['default'].cursor()
+        cursor.execute("SELECT  t.*, p.NomProjet, e.Nom, e.Prenom from task_management_tache t ,task_management_projet p ,task_management_employe e WHERE t.Employe_id=E.Matricule AND t.Projet_id=P.id_projet and t.Etat= 'En attente' GROUP by p.NomProjet")
+        objs = cursor.fetchall()
+        json_data = []
+        for obj in objs:
+            json_data.append({"id_tache": obj[0], "Nom_tache": obj[1], "Description": obj[2], "date_lancement": obj[3], "Etat": obj[4], "Employe_id": obj[5], "Projet_id": obj[6], "NomProjet": obj[7], "Nom": obj[8], "Prenom": obj[9]})
+        return JsonResponse(json_data, safe=False)
+@csrf_exempt
+def get_tache_encours(request):
+    if request.method == 'GET':
+        cursor = connections['default'].cursor()
+        cursor.execute("SELECT  t.*, p.NomProjet, e.Nom, e.Prenom from task_management_tache t ,task_management_projet p ,task_management_employe e WHERE t.Employe_id=E.Matricule AND t.Projet_id=P.id_projet and t.Etat= 'En COURS' GROUP by p.NomProjet")
+        objs = cursor.fetchall()
+        json_data = []
+        for obj in objs:
+            json_data.append({"id_tache": obj[0], "Nom_tache": obj[1], "Description": obj[2], "date_lancement": obj[3], "Etat": obj[4], "Employe_id": obj[5], "Projet_id": obj[6], "NomProjet": obj[7], "Nom": obj[8], "Prenom": obj[9]})
+        return JsonResponse(json_data, safe=False)
+@csrf_exempt
+def get_tache_fin(request):
+    if request.method == 'GET':
+        cursor = connections['default'].cursor()
+        cursor.execute("SELECT  t.*, p.NomProjet, e.Nom, e.Prenom from task_management_tache t ,task_management_projet p ,task_management_employe e WHERE t.Employe_id=E.Matricule AND t.Projet_id=P.id_projet and t.Etat= 'FIN' GROUP by p.NomProjet")
+        objs = cursor.fetchall()
+        json_data = []
+        for obj in objs:
+            json_data.append({"id_tache": obj[0], "Nom_tache": obj[1], "Description": obj[2], "date_lancement": obj[3], "Etat": obj[4], "Employe_id": obj[5], "Projet_id": obj[6], "NomProjet": obj[7], "Nom": obj[8], "Prenom": obj[9]})
         return JsonResponse(json_data, safe=False)
