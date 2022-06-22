@@ -6,7 +6,7 @@ function Header() {
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Navbar</a>
+                    <a className="navbar-brand" href="">task_management</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -16,29 +16,21 @@ function Header() {
                     <div className="collapse navbar-collapse" id="navbarColor03">
                         <ul className="navbar-nav me-auto">
                             <li className="nav-item">
-                                <a className="nav-link active" href="#">Home
+                                <a className="nav-link active" href="/Chef_Service/Projet">Projet
                                     <span className="visually-hidden">(current)</span>
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Features</a>
+                                <a className="nav-link" href="/Chef_Service/Equipe">Equipe</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Pricing</a>
+                                <a className="nav-link" href="/Chef_Service/ajoutprojet">Ajouter un projet</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">About</a>
+                                <a className="nav-link" href="/Chef_Service/ajoutequipe">Ajouter une equipe</a>
                             </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                                   aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                <div className="dropdown-menu">
-                                    <a className="dropdown-item" href="#">Action</a>
-                                    <a className="dropdown-item" href="#">Another action</a>
-                                    <a className="dropdown-item" href="#">Something else here</a>
-                                    <div className="dropdown-divider"></div>
-                                    <a className="dropdown-item" href="#">Separated link</a>
-                                </div>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/Chef_Service/ajoutemploye">Ajouter un employe</a>
                             </li>
                         </ul>
                         

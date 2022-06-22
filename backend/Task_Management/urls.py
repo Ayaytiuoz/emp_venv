@@ -6,6 +6,7 @@ urlpatterns =[
 
  path('api/equipe',views.equipe_CRUD),
  path('api/equipe/<int:id>',views.equipe_CRUD),
+ path('api/equipe/count_employe',views.get_employe_equipe),
 
  path('api/chef_service',views.chefservice_CRUD),
  path('api/chef_service/<int:id>',views.chefservice_CRUD),

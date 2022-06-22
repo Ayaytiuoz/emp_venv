@@ -204,3 +204,13 @@ def get_tache_fin(request):
         for obj in objs:
             json_data.append({"id_tache": obj[0], "Nom_tache": obj[1], "Description": obj[2], "date_lancement": obj[3], "Etat": obj[4], "Employe_id": obj[5], "Projet_id": obj[6], "NomProjet": obj[7], "Nom": obj[8], "Prenom": obj[9]})
         return JsonResponse(json_data, safe=False)
+@csrf_exempt
+def get_employe_equipe(request):
+    if request.method == 'GET':
+        cursor = connections['default'].cursor()
+        cursor.execute("SELECT t.id_Equipe as id , t.Nom_Equipe , t.date_creation , t.chef_Service_id , @x:=(select COUNT(eq.id_Equipe) FROM task_management_equipe eq , task_management_employe em WHERE eq.id_Equipe=em.Equipe_id and eq.id_Equipe=id) as nbremploye FROM task_management_equipe t , task_management_employe e WHERE t.id_Equipe=e.Equipe_id GROUP BY t.id_Equipe")
+        objs = cursor.fetchall()
+        json_data = []
+        for obj in objs:
+            json_data.append({"id_Equipe":obj[0],"Nom_Equipe":obj[1],"date_creation":obj[2],"chef_Service_id":obj[3],"nbremploye":obj[4]})
+        return JsonResponse(json_data, safe=False)
