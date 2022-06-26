@@ -39,6 +39,7 @@ class FormEmploye extends Component{
         axios.post('http://127.0.0.1:8000/Task_Management/api/employe',this.state)
             .then(response=>{
                 console.log(response)
+                window.open('http://localhost:3000/Chef_Service')
             })
             .catch(error=>{
                 console.log(error)
@@ -54,6 +55,7 @@ class FormEmploye extends Component{
                 <div className="col-6">
                     <form onSubmit={this.submitHandler}>
                         <fieldset>
+                            <h2 className="H">Ajouter un Employe</h2>
 
                             <div className="form-group">
                                 <label  className="form-label mt-4">Nom</label>
@@ -76,17 +78,17 @@ class FormEmploye extends Component{
 
                             </div>
                             <div className="form-group">
-                            <label  className="form-label mt-4">email</label>
-                            <input name="email" value={email} onChange={this.ChangeHandler} type="email" className="form-control"  placeholder="Enter votre email"/>
+                                <label  className="form-label mt-4">email</label>
+                                <input name="email" value={email} onChange={this.ChangeHandler} type="email" className="form-control"  placeholder="Enter votre email"/>
 
-                        </div>
-                 <div className="form-group">
-                    <label  className="form-label mt-4">mot de pass</label>
-                    <input name="mdp" value={mdp} onChange={this.ChangeHandler} type="password" className="form-control"  placeholder="Enter votre mot de passe"/>
+                            </div>
+                            <div className="form-group">
+                                <label  className="form-label mt-4">mot de pass</label>
+                                <input name="mdp" value={mdp} onChange={this.ChangeHandler} type="password" className="form-control"  placeholder="Enter votre mot de passe"/>
 
-                </div>
+                            </div>
 
-                <div className="form-group">
+                            <div className="form-group">
                                 <label htmlFor="exampleSelect1" className="form-label mt-4">Equipe</label>
                                 <select name="Equipe" value={Equipe} onChange={this.ChangeHandler}className="form-select" id="exampleSelect1">
                                     <option selected disabled>Open this select menu</option>
@@ -98,7 +100,7 @@ class FormEmploye extends Component{
 
                             <br/>
 
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn btn-primary">Ajouter</button>
 
                         </fieldset>
 

@@ -1,0 +1,52 @@
+.cont{
+    margin-top: 45px;
+
+}
+.h1{
+    color: #b58900;
+    font-size:80px !important;
+    margin-block-end: 24px !important;
+}
+.h2{
+    color: #b58900;
+    font-family:cursive;
+    margin-block-end: 24px !important;
+}
+.avatar{
+    border-radius: 50%;
+    width: 150px !important;
+
+}
+.gif{
+    position: absolute;
+    width: 277px;
+    height: 536px;
+    margin-left: -35px;
+}
+.H{
+    margin-left: 129px;
+    margin-top: 27px;
+}
+.a{
+    margin-top: 28px !important;
+    margin-left: 15px !important;
+}
+.emp{
+    margin-left: 10px !important;
+}
+.nav{
+    overflow: hidden;
+    position: fixed !important;
+    top:0;
+    width: 100%;
+
+}
+td{
+    text-align:center;
+    vertical-align:middle;
+}
+th{
+    text-align:center !important;
+    vertical-align:middle !important;
+    
+}

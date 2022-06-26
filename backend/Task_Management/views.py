@@ -12,19 +12,19 @@ import json
 ### projet##
 @csrf_exempt
 def projet_CRUD(request , id=0):
-    if request.method == 'GET':
+    if request.method == 'GET':# select all
         projets = Projet.objects.all()
         projetserilizer = Projetserilizer(projets, many=True)
         return JsonResponse(projetserilizer.data )
 
-    elif request.method == "POST":
+    elif request.method == "POST":#ajouter
         projet_data = JSONParser().parse(request)
         projets_serializer = Projetserilizer(data = projet_data)
         if projets_serializer.is_valid():
             projets_serializer.save()
             return JsonResponse("Added Successfully", safe=False)
         return JsonResponse("Failed to Add", safe=False)
-    elif request.method == "PUT":
+    elif request.method == "PUT":#modifier
         projet_data = JSONParser().parse(request)
         projet=Projet.objects.get(id_projet=projet_data['id_projet'])
         projet_serializer =Projetserilizer(projet,data=projet_data)
@@ -32,7 +32,7 @@ def projet_CRUD(request , id=0):
             projet_serializer.save()
             return JsonResponse("update Succesfully", safe=False)
         return JsonResponse("Failed to update")
-    elif request.method=='DELETE':
+    elif request.method=='DELETE':#supprimer
         projet =Projet.objects.get(id_projet=id)
         projet.delete()
         return JsonResponse('deleted' , safe=False)
@@ -149,7 +149,7 @@ def tache_CRUD(request, id=0):
 def top_employe(request):
     if request.method == 'GET':
         cursor = connections['default'].cursor()
-        cursor.execute("SELECT count(e.Matricule) as cpt , e.Matricule , e.Nom , e.Prenom from touchtask_employe e , touchtask_tache t where e.Matricule=t.Employe_id and t.Etat='fin'  ORDER BY cpt LIMIT 1")
+        cursor.execute("SELECT COUNT(e.Matricule) as cpt , MAX(t.id_tache) as max , e.Nom , e.Prenom from task_management_employe e , task_management_tache t where e.Matricule=t.Employe_id and t.Etat='fin' GROUP BY e.Matricule ORDER BY cpt DESC LIMIT 1")
         objs = cursor.fetchall()
         json_data = []
         for obj in objs:
@@ -213,4 +213,34 @@ def get_employe_equipe(request):
         json_data = []
         for obj in objs:
             json_data.append({"id_Equipe":obj[0],"Nom_Equipe":obj[1],"date_creation":obj[2],"chef_Service_id":obj[3],"nbremploye":obj[4]})
+        return JsonResponse(json_data, safe=False)
+@csrf_exempt
+def get_Tach_employe(request):
+    if request.method == 'GET':
+        cursor = connections['default'].cursor()
+        cursor.execute("SELECT t.id_tache , t.Nom_tache , t.Etat , e.Nom , e.Prenom  , p.NomProjet FROM task_management_tache t , task_management_employe e , task_management_projet p WHERE t.Employe_id=e.Matricule AND t.Projet_id=p.id_projet")
+        objs = cursor.fetchall()
+        json_data = []
+        for obj in objs:
+            json_data.append({"id_tache":obj[0],"Nom_tache":obj[1],"Etat":obj[2],"Nom":obj[3],"Prenom":obj[4],"Projet":obj[5]})
+        return JsonResponse(json_data, safe=False)
+@csrf_exempt
+def get_employe_by_equipe(request,id):
+    if request.method == 'GET':
+        cursor = connections['default'].cursor()
+        cursor.execute("select e.Matricule , e.Nom , e.Prenom , e.Equipe_id from task_management_employe e , task_management_projet p , task_management_equipe  eq WHERE e.Equipe_id=p.Equipe_id and p.Equipe_id=eq.id_Equipe and p.id_projet=%s"%id)
+        objs = cursor.fetchall()
+        json_data = []
+        for obj in objs:
+            json_data.append({"Matricule":obj[0] , "Nom":obj[1],"Prenom":obj[2],"equipe":obj[3] })
+        return JsonResponse(json_data, safe=False)
+@csrf_exempt
+def get_projet_Detail(request,id):
+    if request.method == 'GET':
+        cursor = connections['default'].cursor()
+        cursor.execute("SELECT e.Matricule ,e.Nom , e.Prenom  ,e.Salaire , e.date_Recrutement , eq.Nom_Equipe from task_management_projet p , task_management_equipe eq , task_management_employe e where p.Equipe_id=eq.id_Equipe and eq.id_Equipe=e.Equipe_id and p.id_projet=%s"%id)
+        objs = cursor.fetchall()
+        json_data = []
+        for obj in objs:
+            json_data.append({"Matricule":obj[0] , "Nom":obj[1],"Prenom":obj[2],"Salaire":obj[3],"date_Recrutement":obj[4],"equipe":obj[5] })
         return JsonResponse(json_data, safe=False)

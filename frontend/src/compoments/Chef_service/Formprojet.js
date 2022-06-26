@@ -39,6 +39,7 @@ class Formprojet extends Component{
         axios.post('http://127.0.0.1:8000/Task_Management/api/projet',this.state)
             .then(response=>{
                 console.log(response)
+                window.open('http://localhost:3000/Chef_Service')
             })
             .catch(error=>{
                 console.log(error)
@@ -54,6 +55,7 @@ class Formprojet extends Component{
                 <div className="col-6">
                     <form onSubmit={this.submitHandler}>
                         <fieldset>
+                            <h2 className="H">Ajouter un Projet</h2>
 
                             <div className="form-group">
                                 <label  className="form-label mt-4">Nom Projet</label>
@@ -84,7 +86,7 @@ class Formprojet extends Component{
 
                             <br/>
 
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn btn-primary">Ajouter</button>
 
                         </fieldset>
 

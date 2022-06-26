@@ -43,8 +43,9 @@ class projet_en_cours extends Component{
                         <small>Dead line :  {projet.Dead_Line}</small>
                     </div>
                     <div className="toast-body">
-                        <a  className="alert-link" href="#">Detail</a>
+                        <span><a href={'http://localhost:3000/Projet/Detail_projet/'+projet.id_projet}>Detail</a></span>
                     </div>
+                    
                 </div>
                 ))}
             </div>
