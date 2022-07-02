@@ -39,7 +39,7 @@ class FormEmploye extends Component{
         axios.post('http://127.0.0.1:8000/Task_Management/api/employe',this.state)
             .then(response=>{
                 console.log(response)
-                window.open('http://localhost:3000/Chef_Service')
+                window.open('http://localhost:3000/Chef_Service','parent')
             })
             .catch(error=>{
                 console.log(error)

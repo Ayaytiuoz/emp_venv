@@ -40,28 +40,27 @@ class Detail_Projet extends Component{
     render(){
         return(
             <Container>
+                <div><center><h1 className="mt-5" >Detail</h1></center></div>
                 <div className="row mt-5 mb-lg-5">
                     {this.state.Details.map(employe=>(
-                        <div className="col-lg-4 border border-1">
 
-                            <li className="list-group-item d-flex justify-content-between align-items-center ">
-                                <label className="text-uppercase text-decoration-underline">{employe.Nom} {employe.Prenom}</label>
-                                <span className="badge bg-primary rounded-pill">MAT : {employe.Matricule}</span>
-                            </li>
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
-                                Date Recrutement : {this.fomatdate(employe.date_Recrutement)}
 
-                            </li>
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
-                                Salaire : {employe.Salaire} DH
+                        <div className="card text-white bg-primary mb-3 col-lg-4 " >
+                            <div className="row card-header" >
+                            <div className=" col-lg-6" >{employe.Nom} {employe.Prenom} </div>
+                            <div className="col-lg-6"><label >Matricule : {employe.Matricule}</label></div>
+                            </div>
+                            <div className="card-body">
+                            <h4 className="card-title">Equipe :{employe.equipe}</h4>
+                            <span className="card-text">Salaire : {employe.Salaire} DH </span><br/>
+                            <span className="card-text">Date Recrutement : {this.fomatdate(employe.date_Recrutement)} </span><br/>
 
-                            </li>
-                            <li className="list-group-item d-flex justify-content-between align-items-center">
-                                Equipe : {employe.equipe}
-                            </li>
+                            </div>
                         </div>
+
                     ))}
                 </div>
+
             </Container>
         );
     }

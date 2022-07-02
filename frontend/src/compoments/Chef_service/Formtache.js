@@ -40,6 +40,7 @@ class Formtache extends Component{
     componentDidMount() {
         this.getProjets();
     }
+    //katjib lik name dial projet
     ChangeHandler = e =>{
         this.setState({[e.target.name]:e.target.value })
         console.log({[e.target.name]:e.target.value})
@@ -53,7 +54,7 @@ class Formtache extends Component{
         axios.post('http://127.0.0.1:8000/Task_Management/api/tache',this.state)
             .then(response=>{
                 console.log(response)
-                window.open('http://localhost:3000/Chef_Service')
+                window.open('http://localhost:3000/Chef_Service','_parent')
             })
             .catch(error=>{
                 console.log(error)

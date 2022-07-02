@@ -39,7 +39,7 @@ class Formequipe extends Component{
         axios.post('http://127.0.0.1:8000/Task_Management/api/equipe',this.state)
             .then(response=>{
                 console.log(response)
-                window.open('http://localhost:3000/employe')
+                window.open('http://localhost:3000/employe','parent')
             })
             .catch(error=>{
                 console.log(error)
